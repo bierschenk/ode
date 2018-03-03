@@ -5,7 +5,7 @@ Credits
 Development Lead
 ----------------
 
-* bierschenk <bierschenk@~.~>
+* bierschenk <bierschenk.devel@gmail.com>
 
 Contributors
 ------------

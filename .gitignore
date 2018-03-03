@@ -102,3 +102,6 @@ ENV/
 
 # Dolphin
 .directory
+
+# Pytest cache
+.pytest_cache/
