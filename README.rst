@@ -10,7 +10,7 @@ ode
         :target: https://travis-ci.org/bierschenk/ode
 
 .. image:: https://readthedocs.org/projects/ode/badge/?version=latest
-        :target: https://ode.readthedocs.io/en/latest/?badge=latest
+        :target: https://ode-solver.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
 
