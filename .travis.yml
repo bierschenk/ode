@@ -5,13 +5,13 @@ python:
 - 3.4
 install: pip install -U tox-travis
 script: tox
-deploy:
-  provider: pypi
-  distributions: sdist bdist_wheel
-  user: bierschenk
-  password:
-    secure: Cp2+0fB3zqXKY6ph1rTiRQvTIZQ+fcQMgcBxr7cs6k6PxEphtKrfdMJeznvO8HHKjFmWCQTw9AD1G6q9xQkoztIWOOQDt20HHrKPQGEVLq7UfUmvHYm1yDwNNqxOKHtRpH2q4kfw3MFSxP/Uc8I0Ad/v8xBSevtNfnQeBkZV3nyw/dJGuUBh22rysF5L1zXXWtOrZq7vjT7nq6B/QmEbDE0iRQLdYR8Vv4G56ru3IudCh3SQ6QKYguDWVkEIfGsXmGvZWK1xXacxuT/+Bb2978TvTNKiqwceZNcgZAbS9XleQZvH9G1BnyVv/M/dJK+Rw5uy/JuvMGYUoBJ09gqRZZwe7ECnjLApttFlt0kHyjfkrEo6EyKb1BY9l/vfa6JgxI2l+dcuEwyc4/hMT8i5MKWVL+2/P6k31c8svFCzLccfgSlgJDCvEK6Oa/lJCyX60UEZcocqhZc1hxjleJnFpxpQFVPhCxIlpgxKw5cJC5VK1HQqGf9XCIHFqmea6+ouoivzv3R+Kn/+aozk5Yjq/ch99aN80paH1P67L4JZQdMfqcdNVlXkQrxct7X3WzvCA1ZPCnB3mR6YbgzHoU8IeXVX54Vx28brA7lcSd3P7ot/nchuWp/axTeUOlFoxWsOijFbbIaIhEIyFs9+kSCQGYw4xXm4zr8D7QKPR3JGm+Y=
-  on:
-    tags: true
-    repo: bierschenk/ode
-    python: 3.6
+#deploy:
+#  provider: pypi
+#  distributions: sdist bdist_wheel
+#  user: bierschenk
+#  password:
+#    secure: Cp2+0fB3zqXKY6ph1rTiRQvTIZQ+fcQMgcBxr7cs6k6PxEphtKrfdMJeznvO8HHKjFmWCQTw9AD1G6q9xQkoztIWOOQDt20HHrKPQGEVLq7UfUmvHYm1yDwNNqxOKHtRpH2q4kfw3MFSxP/Uc8I0Ad/v8xBSevtNfnQeBkZV3nyw/dJGuUBh22rysF5L1zXXWtOrZq7vjT7nq6B/QmEbDE0iRQLdYR8Vv4G56ru3IudCh3SQ6QKYguDWVkEIfGsXmGvZWK1xXacxuT/+Bb2978TvTNKiqwceZNcgZAbS9XleQZvH9G1BnyVv/M/dJK+Rw5uy/JuvMGYUoBJ09gqRZZwe7ECnjLApttFlt0kHyjfkrEo6EyKb1BY9l/vfa6JgxI2l+dcuEwyc4/hMT8i5MKWVL+2/P6k31c8svFCzLccfgSlgJDCvEK6Oa/lJCyX60UEZcocqhZc1hxjleJnFpxpQFVPhCxIlpgxKw5cJC5VK1HQqGf9XCIHFqmea6+ouoivzv3R+Kn/+aozk5Yjq/ch99aN80paH1P67L4JZQdMfqcdNVlXkQrxct7X3WzvCA1ZPCnB3mR6YbgzHoU8IeXVX54Vx28brA7lcSd3P7ot/nchuWp/axTeUOlFoxWsOijFbbIaIhEIyFs9+kSCQGYw4xXm4zr8D7QKPR3JGm+Y=
+#  on:
+#    tags: true
+#    repo: bierschenk/ode
+#    python: 3.6
