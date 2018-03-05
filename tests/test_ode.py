@@ -12,7 +12,6 @@ import pytest
 import ode
 
 
-
 #-----
 # dot function definitions
 
@@ -26,7 +25,6 @@ def spring_mass(*, X):
            -p*k/m,
           ]
     return dx_zero
-
 
 
 #-----
@@ -82,6 +80,21 @@ def test_euler():
     p_euler = [round(x,8) for x in p_euler_raw]
     v_euler = [round(x,8) for x in v_euler_raw]
     assert (t_test, p_test, v_test) == (t_euler, p_euler, v_euler)
+
+def test_ibackward_euler():
+    t_back_e_raw, x_back_e_raw = ode.backward_euler(dot_func=spring_mass, x_zero=[1,0],
+            t_range=[0,2], t_step=0.1)
+    p_back_e_raw, v_back_e_raw = zip(*x_back_e_raw)
+    t_back_e = [round(x,8) for x in t_back_e_raw]
+    p_back_e = [round(x,8) for x in p_back_e_raw]
+    v_back_e = [round(x,8) for x in v_back_e_raw]
+    t_iback_e_raw, x_iback_e_raw = zip(*list(ode.ibackward_euler(dot_func=spring_mass, x_zero=[1,0],
+            t_range=[0,2], t_step=0.1)))
+    p_iback_e_raw, v_iback_e_raw = zip(*x_iback_e_raw)
+    t_iback_e = [round(x,8) for x in t_iback_e_raw]
+    p_iback_e = [round(x,8) for x in p_iback_e_raw]
+    v_iback_e = [round(x,8) for x in v_iback_e_raw]
+    assert (t_back_e, p_back_e, v_back_e) == (t_iback_e, p_iback_e, v_iback_e)
 
 
 def test_backward_euler():
