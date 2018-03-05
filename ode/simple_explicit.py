@@ -6,24 +6,23 @@ import itertools
 from . _functions import _t_gen
 
 
+def ieuler(*, dot_func, x_zero, t_range, t_step):
+    '''Euler method integration, as a python generator.
+    Input: derivative function, X_zero vector, time range, time step
+    Output: yeilds (t,x) until end of time range. x is the state vector
+    as a tuple.'''
+    t_gen = _t_gen(t_range = t_range, t_step = t_step)
+    x = x_zero
+    while True:
+        yield (next(t_gen), x)
+        dx = [i * t_step for i in dot_func(X = x)] # dx = dt*dot(x)
+        x = [sum(j) for j in zip(x, dx)] # x = x + dx
 
 def euler(*, dot_func, x_zero, t_range, t_step):
     '''Euler method integration'''
-    def x_n_gen(*, dot_func, x, t_step):
-        while True:
-            yield x
-            dx = [i * t_step for i in dot_func(X = x)] # dx = dt*dot(x)
-            x = [sum(j) for j in zip(x, dx)] # x = x + dx
-    
-    x_n = x_n_gen(dot_func = dot_func,
-            x = x_zero, t_step = t_step)
-    t = list(_t_gen(
-            t_start = t_range[0],
-            t_end = t_range[1],
-            t_step = t_step,
-            ))
-    x = list(itertools.islice(x_n, len(t)))
-    return t,x
+    t, x = zip(*list(ieuler(dot_func = dot_func, x_zero = x_zero,
+                  t_range = t_range, t_step = t_step)))
+    return t, x
 
 
 def verlet(*, dot_func, x, t_step):
@@ -48,6 +47,5 @@ def leapfrog():
 
 
 
-#change euler to two functions: ieuler and euler. ieuler returns a generator, euler 
+#change euler to two functions: ieuler and euler. ieuler returns a generator, euler
 # calls list(ieuler).
-

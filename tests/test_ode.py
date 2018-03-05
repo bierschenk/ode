@@ -36,10 +36,25 @@ def spring_mass(*, X):
 def test_t_gen():
     t_test = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1,
               1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2]
-    t = ode._functions._t_gen(
-            t_start = 0, t_end = 1.95, t_step = 0.1)
+    t = ode._functions._t_gen(t_range = (0, 1.95), t_step = 0.1)
     t_rnd = [round(x,8) for x in t]
     assert t_rnd == t_test
+
+
+def test_ieuler():
+    t_euler_raw, x_euler_raw = ode.euler(dot_func=spring_mass, x_zero=[1,0],
+            t_range=[0,2], t_step=0.1)
+    p_euler_raw, v_euler_raw = zip(*x_euler_raw)
+    t_euler = [round(x,8) for x in t_euler_raw]
+    p_euler = [round(x,8) for x in p_euler_raw]
+    v_euler = [round(x,8) for x in v_euler_raw]
+    t_ieuler_raw, x_ieuler_raw = zip(*list(ode.ieuler(dot_func=spring_mass, x_zero=[1,0],
+            t_range=[0,2], t_step=0.1)))
+    p_ieuler_raw, v_ieuler_raw = zip(*x_ieuler_raw)
+    t_ieuler = [round(x,8) for x in t_ieuler_raw]
+    p_ieuler = [round(x,8) for x in p_ieuler_raw]
+    v_ieuler = [round(x,8) for x in v_ieuler_raw]
+    assert (t_euler, p_euler, v_euler) == (t_ieuler, p_ieuler, v_ieuler)
 
 
 def test_euler():
@@ -89,14 +104,10 @@ def test_backward_euler():
         0.244361176563023, 0.558863132730499, 0.831776275143007,
         1.05208515957978, 1.21180385144824, 1.30621194602042]
     v_test = [round(x,8) for x in v_test_raw]
-    t_back_e_raw, x_back_e_raw =  ode.backward_euler(dot_func=spring_mass, 
+    t_back_e_raw, x_back_e_raw =  ode.backward_euler(dot_func=spring_mass,
             x_zero=[1,0], t_range=[0,2], t_step=0.1)
     p_back_e_raw, v_back_e_raw = zip(*x_back_e_raw)
     t_back_e = [round(x,8) for x in t_back_e_raw]
     p_back_e = [round(x,8) for x in p_back_e_raw]
     v_back_e = [round(x,8) for x in v_back_e_raw]
     assert (t_test, p_test, v_test) == (t_back_e, p_back_e, v_back_e)
-
-
-
-

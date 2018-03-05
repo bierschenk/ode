@@ -35,20 +35,10 @@ def backward_euler(*, dot_func, x_zero, t_range, t_step,
                     converged = True
                 else:
                     x1_i = x1_i2
-    
+
     x_n = x_n_gen(dot_func = dot_func, x = x_zero, t_step = t_step,
             convergence_threshold = convergence_threshold)
-    t = list(_t_gen(
-        t_start = t_range[0],
-        t_end = t_range[1],
-        t_step = t_step,
-        ))
+    t = list(_t_gen(t_range = t_range, t_step = t_step))
     x = list(itertools.islice(x_n, len(t)))
     return t,x
 # is it possible to **NOT** return a list. Instead create a generator and yield **NEXT**
-
-
-
-
-
-

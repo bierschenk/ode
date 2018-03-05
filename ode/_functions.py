@@ -3,7 +3,8 @@
 
 
 
-def _t_gen(*, t_start, t_end, t_step):
+def _t_gen(*, t_range, t_step):
+    t_start, t_end = t_range
     t = t_start
     n = 0
     while t < t_end + t_step:
