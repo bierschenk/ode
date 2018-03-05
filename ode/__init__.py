@@ -2,7 +2,7 @@
 
 __author__ = """bierschenk"""
 __email__ = 'bierschenk.devel@gmail.com'
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 
 # Import all functions transparently to ode.
