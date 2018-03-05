@@ -28,13 +28,12 @@ integrators such as ode45.
 Features
 --------
 
+Integration methods:
+ * Euler's method
+       Includes both generator and standard version.
+ * Backward Euler method
+       Includes both generator and standard version.
 
-* Integration methods
-  * Euler's method
-  * Backward Euler method
-
-
-* TODO
 
 Credits
 -------
