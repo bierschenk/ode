@@ -10,6 +10,9 @@ __version__ = '0.1.1'
 from . simple_explicit import ieuler
 from . simple_explicit import euler
 
+from . simple_explicit import iverlet
+from . simple_explicit import verlet
+
 
 from . simple_implicit import ibackward_euler
 from . simple_implicit import backward_euler
