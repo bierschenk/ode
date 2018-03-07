@@ -22,7 +22,6 @@ setup(
     author_email='bierschenk.devel@gmail.com',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
-        'Topic :: Scientific/Engineering'
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
