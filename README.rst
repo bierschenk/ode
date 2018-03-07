@@ -33,6 +33,8 @@ Integration methods:
        Includes both generator and standard version.
  * Backward Euler method
        Includes both generator and standard version.
+ * Verlet method:
+       Includes both generator and standard version.
 
 
 Credits

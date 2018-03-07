@@ -9,10 +9,11 @@ To use ode in a project::
 The following integration methods are included in ode:
  * Euler's method
  * Backward Euler method
+ * Verlet method
 
 The integration methods use a derivative function (*dot_func*) to integrate.
 The system is factored into a series of first-order differential equations.
-The derivative function is derived from the system parameters. It returns the 
+The derivative function is derived from the system parameters. It returns the
 derivative of the system calculated from the current state of the system.
 
 The current state and derivative of the system are represented as lists.
