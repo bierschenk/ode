@@ -2,6 +2,12 @@
 # Simple explicit integrators
 # Explicit integrators calculate the future state from the current state.
 
+__all__ = [
+        'euler', 'ieuler',
+        'verlet', 'iverlet',
+          ]
+
+
 from . _functions import _t_gen
 
 
@@ -80,6 +86,3 @@ def leapfrog():
     at staggered times.'''
     pass
 
-
-# change euler to two functions: ieuler and euler. ieuler returns a generator,
-# euler calls list(ieuler).
