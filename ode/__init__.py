@@ -7,12 +7,6 @@ __version__ = '0.1.2'
 
 # Import all functions transparently to ode.
 
-from . simple_explicit import ieuler
-from . simple_explicit import euler
+from ._simple_explicit import *
+from ._simple_implicit import *
 
-from . simple_explicit import iverlet
-from . simple_explicit import verlet
-
-
-from . simple_implicit import ibackward_euler
-from . simple_implicit import backward_euler

@@ -4,6 +4,11 @@
 # according to y_{k+1} = y_k + h*f(t_{k+1}, y_{k_1}) where f(t,y) = dy/dt.
 
 
+__all__ = [
+        'backward_euler', 'ibackward_euler',
+          ]
+
+
 import itertools
 from . _functions import _t_gen
 
@@ -50,3 +55,4 @@ def backward_euler(*, dot_func, x_zero, t_range, t_step,
             t_range = t_range, t_step = t_step,
             convergence_threshold = 0.0000000001, max_iterations = 1000)))
     return t, x
+
