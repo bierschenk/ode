@@ -46,6 +46,14 @@ def test_t_gen():
     assert t_rnd == t_test
 
 
+def test_t_gen_reversed():
+    t_test = [-0, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1,
+              -1.1, -1.2, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, -1.9, -2]
+    t = ode._functions._t_gen(t_range=(0, -1.95), t_step=-0.1)
+    t_rnd = [round(x, 8) for x in t]
+    assert t_rnd == t_test
+
+
 def test_ieuler():
     t_euler_raw, x_euler_raw = ode.euler(
         dot_func=spring_mass, x_zero=[1, 0], t_range=[0, 2], t_step=0.1)
