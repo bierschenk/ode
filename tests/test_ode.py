@@ -28,6 +28,17 @@ def spring_mass(*, X):
     return dx_zero
 
 
+def springmass(t, x):
+    'Given x_zero, return dx_zero for this system'
+    k = 5
+    m = 1
+    p, v = x
+    dx_zero = [
+           v,
+           -p*k/m,
+          ]
+    return dx_zero
+
 def ddx_1var(*, X):
     'X is single variable [x]'
     x = X[0]
@@ -54,15 +65,15 @@ def test_t_gen_reversed():
     assert t_rnd == t_test
 
 
-def test_ieuler():
+def test_Euler():
     t_euler_raw, x_euler_raw = ode.euler(
-        dot_func=spring_mass, x_zero=[1, 0], t_range=[0, 2], t_step=0.1)
+        dfun=springmass, xzero=[1, 0], timerange=[0, 2], timestep=0.1)
     p_euler_raw, v_euler_raw = zip(*x_euler_raw)
     t_euler = [round(x, 8) for x in t_euler_raw]
     p_euler = [round(x, 8) for x in p_euler_raw]
     v_euler = [round(x, 8) for x in v_euler_raw]
-    t_ieuler_raw, x_ieuler_raw = zip(*list(ode.ieuler(
-        dot_func=spring_mass, x_zero=[1, 0], t_range=[0, 2], t_step=0.1)))
+    t_ieuler_raw, x_ieuler_raw = zip(*list(ode.Euler(
+        dfun=springmass, xzero=[1, 0], timerange=[0, 2], timestep=0.1)))
     p_ieuler_raw, v_ieuler_raw = zip(*x_ieuler_raw)
     t_ieuler = [round(x, 8) for x in t_ieuler_raw]
     p_ieuler = [round(x, 8) for x in p_ieuler_raw]
@@ -92,7 +103,7 @@ def test_euler():
         3.46576915900391]
     v_test = [round(x, 8) for x in v_test_raw]
     t_euler_raw, x_euler_raw = ode.euler(
-            dot_func=spring_mass, x_zero=[1, 0], t_range=[0, 2], t_step=0.1)
+            springmass, xzero=[1, 0], timerange=[0, 2], timestep=0.1)
     p_euler_raw, v_euler_raw = zip(*x_euler_raw)
     t_euler = [round(x, 8) for x in t_euler_raw]
     p_euler = [round(x, 8) for x in p_euler_raw]

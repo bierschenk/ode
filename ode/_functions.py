@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
 # helper functions
 
+__all__ = [
+        '_t_gen',
+          ]
 import math
-# def _t_gen(t_range, t_step):
-#     t_start, t_end = t_range
-#     t = t_start
-#     n = 0
-#     while t < t_end + t_step:
-#         yield t
-#         n += 1
-#         t = t_start + (n * t_step)
 
 
 def _t_gen(t_range, t_step):

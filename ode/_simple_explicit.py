@@ -3,34 +3,11 @@
 # Explicit integrators calculate the future state from the current state.
 
 __all__ = [
-        'euler', 'ieuler',
         'verlet', 'iverlet',
           ]
 
 
 from . _functions import _t_gen
-
-
-def ieuler(*, dot_func, x_zero, t_range, t_step):
-    '''Euler method integration, as a python generator.
-    Input: derivative function, X_zero vector, time range, time step
-    Output: yeilds (t,x) until end of time range. x is the state vector
-    as a tuple.'''
-    t_gen = _t_gen(t_range=t_range, t_step=t_step)
-    x = x_zero
-    while True:
-        yield (next(t_gen), x)
-        dx = [i * t_step for i in dot_func(X=x)]  # dx = dt*dot(x)
-        x = [sum(j) for j in zip(x, dx)]  # x = x + dx
-
-
-def euler(*, dot_func, x_zero, t_range, t_step):
-    '''Euler method integration
-    Input: derivative function, X_zero vector, time range, time step
-    Output: t, x'''
-    t, x = zip(*list(ieuler(
-            dot_func=dot_func, x_zero=x_zero, t_range=t_range, t_step=t_step)))
-    return t, x
 
 
 def iverlet(*, ddot_func, x_zero, v_zero, t_range, t_step):
@@ -85,4 +62,3 @@ def leapfrog():
     '''similar to velocity_verlet but position and velocity are calculated
     at staggered times.'''
     pass
-

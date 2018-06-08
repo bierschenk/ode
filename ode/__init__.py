@@ -9,4 +9,4 @@ __version__ = '0.1.2'
 
 from ._simple_explicit import *
 from ._simple_implicit import *
-
+from .integrators import *
