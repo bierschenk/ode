@@ -8,24 +8,12 @@ test_ode
 Tests for `ode` module.
 """
 
-# import pytest
 import ode
 from .test_data import *
 
 
 # ----
 # dot function definitions
-
-def spring_mass(*, X):
-    'Given x_zero, return dx_zero for this system'
-    k = 5
-    m = 1
-    p, v = X
-    dx_zero = [
-           v,
-           -p*k/m,
-          ]
-    return dx_zero
 
 
 def springmass(t, x):
@@ -41,38 +29,8 @@ def springmass(t, x):
     return dx_zero
 
 
-def ddx_1var(*, X):
-    'X is single variable [x]'
-    x = X[0]
-    ddx = -0.1 * x
-    return [ddx]
-
-
-def ddx1var(t, X):
-    'X is single variable [x]'
-    x = X[0]
-    ddx = -0.1 * x
-    return [ddx]
-
-
 # -----
 # TESTS
-# Test data generated in a spreadsheet
-
-def test_t_gen():
-    t_test = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1,
-              1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2]
-    t = ode._functions._t_gen(t_range=(0, 1.95), t_step=0.1)
-    t_rnd = [round(x, 8) for x in t]
-    assert t_rnd == t_test
-
-
-def test_t_gen_reversed():
-    t_test = [-0, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1,
-              -1.1, -1.2, -1.3, -1.4, -1.5, -1.6, -1.7, -1.8, -1.9, -2]
-    t = ode._functions._t_gen(t_range=(0, -1.95), t_step=-0.1)
-    t_rnd = [round(x, 8) for x in t]
-    assert t_rnd == t_test
 
 
 def test_euler():
@@ -105,22 +63,23 @@ def test_Euler():
 
 
 def test_ibackward_euler():
-    t_back_e_raw, x_back_e_raw = ode.backward_euler(
-            dot_func=spring_mass, x_zero=[1, 0], t_range=[0, 2], t_step=0.1)
+    t_back_e_raw, x_back_e_raw = ode.backwardeuler(
+            oscillator_1st_deriv, xzero=[0, 1], timerange=[0, 5], timestep=0.1)
     p_back_e_raw, v_back_e_raw = zip(*x_back_e_raw)
-    t_back_e = [round(x, 8) for x in t_back_e_raw]
-    p_back_e = [round(x, 8) for x in p_back_e_raw]
-    v_back_e = [round(x, 8) for x in v_back_e_raw]
-    t_iback_e_raw, x_iback_e_raw = zip(*list(ode.ibackward_euler(
-            dot_func=spring_mass, x_zero=[1, 0], t_range=[0, 2], t_step=0.1)))
+    t_back_e = [round(x, 6) for x in t_back_e_raw]
+    p_back_e = [round(x, 6) for x in p_back_e_raw]
+    v_back_e = [round(x, 6) for x in v_back_e_raw]
+    t_iback_e_raw, x_iback_e_raw = zip(*list(ode.BackwardEuler(
+            oscillator_1st_deriv, xzero=[0, 1],
+            timerange=[0, 5], timestep=0.1)))
     p_iback_e_raw, v_iback_e_raw = zip(*x_iback_e_raw)
-    t_iback_e = [round(x, 8) for x in t_iback_e_raw]
-    p_iback_e = [round(x, 8) for x in p_iback_e_raw]
-    v_iback_e = [round(x, 8) for x in v_iback_e_raw]
+    t_iback_e = [round(x, 6) for x in t_iback_e_raw]
+    p_iback_e = [round(x, 6) for x in p_iback_e_raw]
+    v_iback_e = [round(x, 6) for x in v_iback_e_raw]
     assert (t_back_e, p_back_e, v_back_e) == (t_iback_e, p_iback_e, v_iback_e)
 
 
-def test_backward_euler():
+def test_backwardeuler():
     t_test_raw = [
         0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
         1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]
@@ -143,8 +102,8 @@ def test_backward_euler():
         0.244361176563023, 0.558863132730499, 0.831776275143007,
         1.05208515957978, 1.21180385144824, 1.30621194602042]
     v_test = [round(x, 8) for x in v_test_raw]
-    t_back_e_raw, x_back_e_raw = ode.backward_euler(
-            dot_func=spring_mass, x_zero=[1, 0], t_range=[0, 2], t_step=0.1)
+    t_back_e_raw, x_back_e_raw = ode.backwardeuler(
+            dfun=springmass, xzero=[1, 0], timerange=[0, 2], timestep=0.1)
     p_back_e_raw, v_back_e_raw = zip(*x_back_e_raw)
     t_back_e = [round(x, 8) for x in t_back_e_raw]
     p_back_e = [round(x, 8) for x in p_back_e_raw]

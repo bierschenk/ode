@@ -7,6 +7,4 @@ __version__ = '0.1.2'
 
 # Import all functions transparently to ode.
 
-from ._simple_explicit import *
-from ._simple_implicit import *
 from .integrators import *
