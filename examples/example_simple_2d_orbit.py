@@ -4,7 +4,7 @@ import math
 import matplotlib.pyplot as plt
 
 
-def dx_orbit_sys(*, X):
+def dx_orbit_sys(t, X):
     m_earth = 5.97237*(10**24)  # kg
     m_moon = 7.342*(10**22)  # kg
     G = 6.67408*(10**-11)  # m**3 kg**−1 s**−2
@@ -26,7 +26,7 @@ def dx_orbit_sys(*, X):
     return dX
 
 
-def ddx_orbit_sys(*, X):
+def ddx_orbit_sys(t, X):
     m_earth = 5.97237*(10**24)  # kg
     m_moon = 7.342*(10**22)  # kg
     G = 6.67408*(10**-11)  # m**3 kg**−1 s**−2
@@ -60,17 +60,17 @@ X_0 = [
 
 
 t_euler, x_euler = ode.euler(
-        dot_func=dx_orbit_sys,
-        x_zero=X_0,
-        t_range=t_range,
-        t_step=t_step,
+        dfun=dx_orbit_sys,
+        xzero=X_0,
+        timerange=t_range,
+        timestep=t_step,
         )
 
-t_backward_euler, x_backward_euler = ode.backward_euler(
-        dot_func=dx_orbit_sys,
-        x_zero=X_0,
-        t_range=t_range,
-        t_step=t_step,
+t_backward_euler, x_backward_euler = ode.backwardeuler(
+        dfun=dx_orbit_sys,
+        xzero=X_0,
+        timerange=t_range,
+        timestep=t_step,
         )
 
 e1,  e2,  e3,  e4,  e5,  e6,  e7,  e8 = zip(*x_euler)
@@ -90,9 +90,9 @@ v_verlet_0 = [
         1022,       # Vy Moon (m/s)
         ]
 
-t_verlet, x_verlet = ode.verlet(
-        ddot_func=ddx_orbit_sys, x_zero=x_verlet, v_zero=v_verlet_0,
-        t_range=t_range, t_step=t_step)
+t_verlet, x_verlet, v_verlet = ode.verlet(
+        dfun=ddx_orbit_sys, xzero=x_verlet, vzero=v_verlet_0,
+        timerange=t_range, timestep=t_step)
 
 v1, v2, v3, v4 = zip(*x_verlet)
 
