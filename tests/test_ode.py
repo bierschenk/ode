@@ -10,6 +10,7 @@ Tests for `ode` module.
 
 # import pytest
 import ode
+from .test_data import *
 
 
 # ----
@@ -28,7 +29,8 @@ def spring_mass(*, X):
 
 
 def springmass(t, x):
-    'Given x_zero, return dx_zero for this system'
+    '''Given x_zero, return dx_zero for this system.
+    First derivative. x is length 2.'''
     k = 5
     m = 1
     p, v = x
@@ -90,32 +92,18 @@ def test_euler():
 
 
 def test_Euler():
-    t_test_raw = [
-            0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
-            1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]
-    t_test = [round(x, 8) for x in t_test_raw]
-    p_test_raw = [
-        1.0, 1.0, 0.95, 0.85, 0.7025, 0.5125, 0.287375,
-        0.036625, -0.22849375, -0.49544375, -0.7509690625,
-        -0.9817221875, -1.174926859375, -1.319045421875,
-        -1.40441764140625, -1.42383758984375, -1.37303665621094,
-        -1.25104384308594, -1.06039919715039, -0.807202359060547,
-        -0.500985561113183]
-    p_test = [round(x, 8) for x in p_test_raw]
-    v_test_raw = [
-        0.0, -0.5, -1.0, -1.475, -1.9, -2.25125, -2.5075,
-        -2.6511875, -2.6695, -2.555253125, -2.30753125,
-        -1.93204671875, -1.441185625, -0.853722195312499,
-        -0.194199484374999, 0.508009336328126, 1.21992813125,
-        1.90644645935547, 2.53196838089844, 3.06216797947363,
-        3.46576915900391]
-    v_test = [round(x, 8) for x in v_test_raw]
+    t_test = [round(x, 8) for x in oscillator_euler_t]
+    p_test = [round(x, 8) for x in oscillator_euler_x1]
+    v_test = [round(x, 8) for x in oscillator_euler_x2]
     t_euler_raw, x_euler_raw = ode.euler(
-            springmass, xzero=[1, 0], timerange=[0, 2], timestep=0.1)
+            oscillator_1st_deriv, xzero=[0, 1], timerange=[0, 4.99], timestep=0.1)
+    print(t_euler_raw)
     p_euler_raw, v_euler_raw = zip(*x_euler_raw)
     t_euler = [round(x, 8) for x in t_euler_raw]
     p_euler = [round(x, 8) for x in p_euler_raw]
     v_euler = [round(x, 8) for x in v_euler_raw]
+    print(t_test)
+    print(t_euler)
     assert (t_test, p_test, v_test) == (t_euler, p_euler, v_euler)
 
 
