@@ -36,20 +36,18 @@ class ConstantTimestep(Integrator):
 
 class Euler(ConstantTimestep):
     '''Euler method integration. This class implements a generator.
-    https://en.wikipedia.org/wiki/Euler_method
-    Inputs:
-        dfun:
+
+        :param dfun:
             derivative function of the system.
             The differential system arranged as a series of first-order
-            equations: \dot{X} = dfun(t, x)
-        xzero:
+            equations: \\dot{X} = dfun(t, x)
+        :param xzero:
             the initial condition of the system
-        timerange:
+        :param timerange:
             the start and end times as (starttime, endtime)
-        timestep:
+        :param timestep:
             the timestep
-    Outputs:
-        t, x:
+        :returns: t, x:
             for each iteration.
     '''
 
@@ -73,42 +71,39 @@ class Euler(ConstantTimestep):
 
 def euler(dfun, xzero, timerange, timestep):
     '''Euler method integration. This function wraps the Euler class.
-    https://en.wikipedia.org/wiki/Euler_method
-    Inputs:
-        dfun:
+
+        :param dfun:
             derivative function of the system.
             The differential system arranged as a series of first-order
-            equations: \dot{X} = dfun(t, x)
-        xzero:
+            equations: \\dot{X} = dfun(t, x)
+        :param xzero:
             the initial condition of the system
-        timerange:
+        :param timerange:
             the start and end times as (starttime, endtime)
-        timestep:
+        :param timestep:
             the timestep
-    Outputs:
-        t, x:
+        :returns: t, x:
+            as lists
     '''
     return zip(*list(Euler(dfun, xzero, timerange, timestep)))
 
 
 class Verlet(ConstantTimestep):
     '''Verlet method integration. This class implements a generator.
-    https://en.wikipedia.org/wiki/Verlet_integration
-    Inputs:
-        dfun:
+
+        :param dfun:
             second derivative function of the system.
             The differential system arranged as a series of second-order
             equations: \ddot{X} = dfun(t, x)
-        xzero:
+        :param xzero:
             the initial condition of the system
-        vzero:
+        :param vzero:
             the initial condition of first derivative of the system
-        timerange:
+        :param timerange:
             the start and end times as (starttime, endtime)
-        timestep:
+        :param timestep:
             the timestep
-    Outputs:
-        t, x, v:
+        :returns: t, x, v:
             for each iteration.
     '''
     def __init__(self, dfun, xzero, vzero, timerange, timestep):
@@ -149,50 +144,47 @@ class Verlet(ConstantTimestep):
 
 def verlet(dfun, xzero, vzero, timerange, timestep):
     '''Verlet method integration. This function wraps the Verlet class.
-    https://en.wikipedia.org/wiki/Verlet_integration
-    Inputs:
-        dfun:
+
+        :param dfun:
             second derivative function of the system.
             The differential system arranged as a series of second-order
             equations: \ddot{X} = dfun(t, x)
-        xzero:
+        :param xzero:
             the initial condition of the system
-        vzero:
+        :param vzero:
             the initial condition of first derivative of the system
-        timerange:
+        :param timerange:
             the start and end times as (starttime, endtime)
-        timestep:
+        :param timestep:
             the timestep
-    Outputs:
-        t, x, v:
+        :returns: t, x, v:
+            as lists.
     '''
     return zip(*list(Verlet(dfun, xzero, vzero, timerange, timestep)))
 
 
 class BackwardEuler(ConstantTimestep):
     '''Backward Euler method integration. This class implements a generator.
-    https://en.wikipedia.org/wiki/Backward_Euler_method
-    Inputs:
-        dfun:
+
+        :param dfun:
             Derivative function of the system.
             The differential system arranged as a series of first-order
             equations: \dot{X} = dfun(t, x)
-        xzero:
+        :param xzero:
             The initial condition of the system.
-        vzero:
+        :param vzero:
             The initial condition of first derivative of the system.
-        timerange:
+        :param timerange:
             The start and end times as (starttime, endtime).
-        timestep:
+        :param timestep:
            The timestep.
-        convergencethreshold:
+        :param convergencethreshold:
             Each step requires an iterative solution of an implicit equation.
             This is the threshold of convergence.
-        maxiterations:
+        :param maxiterations:
             Maximum iterations of the implicit equation before raising
             an exception.
-    Outputs:
-        t, x:
+        :returns: t, x:
             for each iteration.
     '''
     def __init__(self, dfun, xzero, timerange, timestep,
@@ -234,29 +226,27 @@ class BackwardEuler(ConstantTimestep):
 
 
 def backwardeuler(dfun, xzero, timerange, timestep):
-    '''Backward Euler method integration.
-    This function wraps the Backward Euler class.
-    https://en.wikipedia.org/wiki/Backward_Euler_method
-    Inputs:
-        dfun:
+    '''Backward Euler method integration. This function wraps BackwardEuler.
+
+        :param dfun:
             Derivative function of the system.
             The differential system arranged as a series of first-order
             equations: \dot{X} = dfun(t, x)
-        xzero:
+        :param xzero:
             The initial condition of the system.
-        vzero:
+        :param vzero:
             The initial condition of first derivative of the system.
-        timerange:
+        :param timerange:
             The start and end times as (starttime, endtime).
-        timestep:
+        :param timestep:
            The timestep.
-        convergencethreshold:
+        :param convergencethreshold:
             Each step requires an iterative solution of an implicit equation.
             This is the threshold of convergence.
-        maxiterations:
+        :param maxiterations:
             Maximum iterations of the implicit equation before raising
             an exception.
-    Outputs:
-        t, x:
+        :returns: t, x:
+            as lists.
     '''
     return zip(*list(BackwardEuler(dfun, xzero, timerange, timestep)))
