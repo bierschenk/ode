@@ -3,7 +3,7 @@
 # Explicit integrators calculate the future state from the current state.
 
 __all__ = [
-        'verlet', 'iverlet',
+        #'verlet', 'iverlet',
           ]
 
 

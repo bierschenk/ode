@@ -9,7 +9,6 @@ Tests for `ode` module.
 """
 
 # import pytest
-import math
 import ode
 
 
@@ -39,11 +38,20 @@ def springmass(t, x):
           ]
     return dx_zero
 
+
 def ddx_1var(*, X):
     'X is single variable [x]'
     x = X[0]
     ddx = -0.1 * x
     return [ddx]
+
+
+def ddx1var(t, X):
+    'X is single variable [x]'
+    x = X[0]
+    ddx = -0.1 * x
+    return [ddx]
+
 
 # -----
 # TESTS
@@ -65,7 +73,7 @@ def test_t_gen_reversed():
     assert t_rnd == t_test
 
 
-def test_Euler():
+def test_euler():
     t_euler_raw, x_euler_raw = ode.euler(
         dfun=springmass, xzero=[1, 0], timerange=[0, 2], timestep=0.1)
     p_euler_raw, v_euler_raw = zip(*x_euler_raw)
@@ -81,7 +89,7 @@ def test_Euler():
     assert (t_euler, p_euler, v_euler) == (t_ieuler, p_ieuler, v_ieuler)
 
 
-def test_euler():
+def test_Euler():
     t_test_raw = [
             0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
             1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]
@@ -159,16 +167,16 @@ def test_backward_euler():
     assert (t_test, p_test, v_test) == (t_back_e, p_back_e, v_back_e)
 
 
-def test_iverlet():
-    tv_raw, x_v_raw = ode.verlet(
-        ddot_func=ddx_1var, x_zero=[1], v_zero=[0],
-        t_range=[.33, 8], t_step=.23)
+def test_Verlet():
+    tv_raw, x_v_raw, v_v_raw = ode.verlet(
+        dfun=ddx1var, xzero=[1], vzero=[0],
+        timerange=[.33, 8], timestep=.23)
     xv_raw = list(zip(*x_v_raw))[0]
     tv = [round(x, 8) for x in tv_raw]
     xv = [round(x, 8) for x in xv_raw]
-    tiv_raw, x_iv_raw = zip(*list(ode.iverlet(
-        ddot_func=ddx_1var, x_zero=[1], v_zero=[0],
-        t_range=[.33, 8], t_step=.23)))
+    tiv_raw, x_iv_raw, v_iv_raw = zip(*list(ode.Verlet(
+        dfun=ddx1var, xzero=[1], vzero=[0],
+        timerange=[.33, 8], timestep=.23)))
     xiv_raw = list(zip(*x_iv_raw))[0]
     tiv = [round(x, 8) for x in tiv_raw]
     xiv = [round(x, 8) for x in xiv_raw]
@@ -196,9 +204,9 @@ def test_verlet():
         -0.784971545535008]
     t_test = [round(x, 8) for x in t_test_raw]
     x_test = [round(x, 8) for x in x_test_raw]
-    t_v_raw, x_v_raw = ode.verlet(
-            ddot_func=ddx_1var, x_zero=[1], v_zero=[0],
-            t_range=[.33, 8], t_step=.23)
+    t_v_raw, x_v_raw, v_v_raw = ode.verlet(
+            dfun=ddx1var, xzero=[1], vzero=[0],
+            timerange=[.33, 8], timestep=.23)
     xv_raw = list(zip(*x_v_raw))[0]
     t_v = [round(x, 8) for x in t_v_raw]
     x_v = [round(x, 8) for x in xv_raw]
