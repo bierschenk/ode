@@ -77,33 +77,30 @@ def test_t_gen_reversed():
 
 def test_euler():
     t_euler_raw, x_euler_raw = ode.euler(
-        dfun=springmass, xzero=[1, 0], timerange=[0, 2], timestep=0.1)
+        oscillator_1st_deriv, xzero=[0, 1], timerange=[0, 5], timestep=0.1)
     p_euler_raw, v_euler_raw = zip(*x_euler_raw)
-    t_euler = [round(x, 8) for x in t_euler_raw]
-    p_euler = [round(x, 8) for x in p_euler_raw]
-    v_euler = [round(x, 8) for x in v_euler_raw]
+    t_euler = [round(x, 6) for x in t_euler_raw]
+    p_euler = [round(x, 6) for x in p_euler_raw]
+    v_euler = [round(x, 6) for x in v_euler_raw]
     t_ieuler_raw, x_ieuler_raw = zip(*list(ode.Euler(
-        dfun=springmass, xzero=[1, 0], timerange=[0, 2], timestep=0.1)))
+        oscillator_1st_deriv, xzero=[0, 1], timerange=[0, 5], timestep=0.1)))
     p_ieuler_raw, v_ieuler_raw = zip(*x_ieuler_raw)
-    t_ieuler = [round(x, 8) for x in t_ieuler_raw]
-    p_ieuler = [round(x, 8) for x in p_ieuler_raw]
-    v_ieuler = [round(x, 8) for x in v_ieuler_raw]
+    t_ieuler = [round(x, 6) for x in t_ieuler_raw]
+    p_ieuler = [round(x, 6) for x in p_ieuler_raw]
+    v_ieuler = [round(x, 6) for x in v_ieuler_raw]
     assert (t_euler, p_euler, v_euler) == (t_ieuler, p_ieuler, v_ieuler)
 
 
 def test_Euler():
-    t_test = [round(x, 8) for x in oscillator_euler_t]
-    p_test = [round(x, 8) for x in oscillator_euler_x1]
-    v_test = [round(x, 8) for x in oscillator_euler_x2]
+    t_test = [round(x, 6) for x in oscillator_euler_t]
+    p_test = [round(x, 6) for x in oscillator_euler_x1]
+    v_test = [round(x, 6) for x in oscillator_euler_x2]
     t_euler_raw, x_euler_raw = ode.euler(
             oscillator_1st_deriv, xzero=[0, 1], timerange=[0, 5], timestep=0.1)
-    print(t_euler_raw)
     p_euler_raw, v_euler_raw = zip(*x_euler_raw)
-    t_euler = [round(x, 8) for x in t_euler_raw]
-    p_euler = [round(x, 8) for x in p_euler_raw]
-    v_euler = [round(x, 8) for x in v_euler_raw]
-    print(t_test)
-    print(t_euler)
+    t_euler = [round(x, 6) for x in t_euler_raw]
+    p_euler = [round(x, 6) for x in p_euler_raw]
+    v_euler = [round(x, 6) for x in v_euler_raw]
     assert (t_test, p_test, v_test) == (t_euler, p_euler, v_euler)
 
 
@@ -157,45 +154,36 @@ def test_backward_euler():
 
 def test_Verlet():
     tv_raw, x_v_raw, v_v_raw = ode.verlet(
-        dfun=ddx1var, xzero=[1], vzero=[0],
-        timerange=[.33, 8], timestep=.23)
+            dfun=oscillator_2nd_deriv, xzero=[0], vzero=[1],
+            timerange=[0, 5], timestep=.1)
     xv_raw = list(zip(*x_v_raw))[0]
-    tv = [round(x, 8) for x in tv_raw]
-    xv = [round(x, 8) for x in xv_raw]
+    vv_raw = list(zip(*v_v_raw))[0]
+    tv = [round(x, 6) for x in tv_raw]
+    xv = [round(x, 6) for x in xv_raw]
+    vv = [round(x, 6) for x in vv_raw]
     tiv_raw, x_iv_raw, v_iv_raw = zip(*list(ode.Verlet(
-        dfun=ddx1var, xzero=[1], vzero=[0],
-        timerange=[.33, 8], timestep=.23)))
+            dfun=oscillator_2nd_deriv, xzero=[0], vzero=[1],
+            timerange=[0, 5], timestep=.1)))
     xiv_raw = list(zip(*x_iv_raw))[0]
-    tiv = [round(x, 8) for x in tiv_raw]
-    xiv = [round(x, 8) for x in xiv_raw]
+    viv_raw = list(zip(*v_iv_raw))[0]
+    tiv = [round(x, 6) for x in tiv_raw]
+    xiv = [round(x, 6) for x in xiv_raw]
+    viv = [round(x, 6) for x in viv_raw]
     assert (tv, xv) == (tiv, xiv)
 
 
 def test_verlet():
-    t_test_raw = [
-        0.33, 0.56, 0.79, 1.02, 1.25, 1.48, 1.71, 1.94, 2.17, 2.40, 2.63,
-        2.86, 3.09, 3.32, 3.55, 3.78, 4.01, 4.24, 4.47, 4.70, 4.93, 5.16,
-        5.39, 5.62, 5.85, 6.08, 6.31, 6.54, 6.77, 7.00, 7.23, 7.46, 7.69,
-        7.92, 8.15]
-    x_test_raw = [
-        1, 0.997355, 0.98943399205, 0.976278878282055,
-        0.957959249247999, 0.93457201578542, 0.906240896359337,
-        0.873115762591512, 0.835371846439579, 0.79320881321998,
-        0.746849705378448, 0.696539762595463, 0.642545124468349,
-        0.585151422632797, 0.524662269771517, 0.461397653503146,
-        0.395692243647744, 0.327893621823445, 0.2583604427397,
-        0.187460536913861, 0.115568964847749, 0.043066032957592,
-        -0.029664718246911, -0.102238543091887, -0.174271526043908,
-        -0.245382612623156, -0.315195625181628, -0.383341252882889,
-        -0.449459005356399, -0.513199119691574, -0.574224410683581,
-        -0.632212054543072, -0.68685529663403, -0.737865074205793,
-        -0.784971545535008]
-    t_test = [round(x, 8) for x in t_test_raw]
-    x_test = [round(x, 8) for x in x_test_raw]
+    t_test = [round(x, 6) for x in oscillator_verlet_t]
+    x_test = [round(x, 6) for x in oscillator_verlet_x1]
+    v_test = [round(x, 6) for x in oscillator_verlet_v1]
     t_v_raw, x_v_raw, v_v_raw = ode.verlet(
-            dfun=ddx1var, xzero=[1], vzero=[0],
-            timerange=[.33, 8], timestep=.23)
+            dfun=oscillator_2nd_deriv, xzero=[0], vzero=[1],
+            timerange=[0, 5], timestep=.1)
     xv_raw = list(zip(*x_v_raw))[0]
-    t_v = [round(x, 8) for x in t_v_raw]
-    x_v = [round(x, 8) for x in xv_raw]
-    assert (t_test, x_test) == (t_v, x_v)
+    vv_raw = list(zip(*v_v_raw))[0]
+    t_v = [round(x, 6) for x in t_v_raw]
+    x_v = [round(x, 6) for x in xv_raw]
+    v_v = [round(x, 6) for x in vv_raw]
+    assert t_test == t_v
+    assert x_test == x_v
+    assert v_test == v_v
