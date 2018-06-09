@@ -7,7 +7,7 @@ __all__ = [
           ]
 
 
-# from ._functions import *
+import math
 
 
 class Integrator:
@@ -28,6 +28,8 @@ class ConstantTimestep(Integrator):
         self.timestep = timestep
         self.time = self.timestart
         self.direction = timestep/abs(timestep)
+        self.steps = math.ceil((self.timeend - self.timestart) / timestep)
+        self.stepcounter = 0
         self.status = 'initialized'
 
 
@@ -51,15 +53,16 @@ class Euler(ConstantTimestep):
     '''
 
     def __next__(self):
-        if (self.time * self.direction) < self.timeend:
+        if self.stepcounter < self.steps:
             if self.status == 'initialized':
                 self.status = 'running'
                 return self.time, self.x
             else:
+                self.stepcounter += 1
                 dx = self.dfun(self.time, self.x)
                 dxdt = [x * self.timestep for x in dx]
                 self.time, self.x = (
-                    self.time + self.timestep,
+                    self.timestart + (self.stepcounter * self.timestep),
                     [xi + didt for xi, didt in zip(self.x, dxdt)])
                 return self.time, self.x
         else:
@@ -110,11 +113,10 @@ class Verlet(ConstantTimestep):
     def __init__(self, dfun, xzero, vzero, timerange, timestep):
         self.v = vzero
         self.xold = xzero
-        self.xold = xzero
         super().__init__(dfun, xzero, timerange, timestep)
 
     def __next__(self):
-        if (self.time * self.direction) < self.timeend:
+        if self.stepcounter < self.steps:
             if self.status == 'initialized':
                 ddx = self.dfun(self.time, self.x)
                 self.xnext = [sum(i) for i in zip(
@@ -124,9 +126,10 @@ class Verlet(ConstantTimestep):
                 self.status = 'running'
                 return self.time, self.x, self.v
             elif self.status == 'running':
+                self.stepcounter += 1
                 ddx = self.dfun(self.time + self.timestep, self.xnext)
                 self.time, self.xold, self.x, self.xnext = [
-                    self.time + self.timestep,
+                    self.timestart + (self.stepcounter * self.timestep),
                     self.x,
                     self.xnext,
                     [sum(i) for i in zip(

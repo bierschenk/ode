@@ -96,7 +96,7 @@ def test_Euler():
     p_test = [round(x, 8) for x in oscillator_euler_x1]
     v_test = [round(x, 8) for x in oscillator_euler_x2]
     t_euler_raw, x_euler_raw = ode.euler(
-            oscillator_1st_deriv, xzero=[0, 1], timerange=[0, 4.99], timestep=0.1)
+            oscillator_1st_deriv, xzero=[0, 1], timerange=[0, 5], timestep=0.1)
     print(t_euler_raw)
     p_euler_raw, v_euler_raw = zip(*x_euler_raw)
     t_euler = [round(x, 8) for x in t_euler_raw]
