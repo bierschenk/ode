@@ -2,6 +2,14 @@
 History
 =======
 
+0.2.0 (2018-06-10)
+------------------
+
+* Refactor to improve readability and code reuse.
+* Clean tempating and testing
+* Update documentation
+
+
 0.1.2 (2018-03-06)
 ------------------
 
