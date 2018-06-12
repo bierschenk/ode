@@ -9,4 +9,5 @@ ode - Numeric integration for ordinary differential equations
    installation
    integrationmethods
    usage
+   double-pendulum-example
    history
