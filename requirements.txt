@@ -11,5 +11,5 @@ ipykernel==4.8.2
 matplotlib==2.1.2
 
 pytest==3.6.1
-pytest-runner==4.2
+pytest-runner==4.5
 
