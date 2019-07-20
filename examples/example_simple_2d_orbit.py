@@ -73,8 +73,8 @@ t_backward_euler, x_backward_euler = ode.backwardeuler(
         timestep=t_step,
         )
 
-e1,  e2,  e3,  e4,  e5,  e6,  e7,  e8 = zip(*x_euler)
-be1, be2, be3, be4, be5, be6, be7, be8 = zip(*x_backward_euler)
+e1,  e2,  e3,  e4,  e5,  e6,  e7,  e8 = x_euler
+be1, be2, be3, be4, be5, be6, be7, be8 = x_backward_euler
 
 x_verlet = [
         0,          # Px⋅Earth (m)
@@ -94,7 +94,7 @@ t_verlet, x_verlet, v_verlet = ode.verlet(
         dfun=ddx_orbit_sys, xzero=x_verlet, vzero=v_verlet_0,
         timerange=t_range, timestep=t_step)
 
-v1, v2, v3, v4 = zip(*x_verlet)
+v1, v2, v3, v4 = x_verlet
 
 plt.plot(e1, e2, label='Earth, Euler')
 plt.plot(e3, e4, label='Moon, Euler')

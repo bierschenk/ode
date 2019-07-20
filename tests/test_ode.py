@@ -19,7 +19,7 @@ from .test_data import *
 def test_euler():
     t_euler_raw, x_euler_raw = ode.euler(
         oscillator_1st_deriv, xzero=[0, 1], timerange=[0, 5], timestep=0.1)
-    p_euler_raw, v_euler_raw = zip(*x_euler_raw)
+    p_euler_raw, v_euler_raw = x_euler_raw
     t_euler = [round(x, 6) for x in t_euler_raw]
     p_euler = [round(x, 6) for x in p_euler_raw]
     v_euler = [round(x, 6) for x in v_euler_raw]
@@ -38,7 +38,7 @@ def test_Euler():
     v_test = [round(x, 6) for x in oscillator_euler_x2]
     t_euler_raw, x_euler_raw = ode.euler(
             oscillator_1st_deriv, xzero=[0, 1], timerange=[0, 5], timestep=0.1)
-    p_euler_raw, v_euler_raw = zip(*x_euler_raw)
+    p_euler_raw, v_euler_raw = x_euler_raw
     t_euler = [round(x, 6) for x in t_euler_raw]
     p_euler = [round(x, 6) for x in p_euler_raw]
     v_euler = [round(x, 6) for x in v_euler_raw]
@@ -48,7 +48,7 @@ def test_Euler():
 def test_backwardeuler():
     t_back_e_raw, x_back_e_raw = ode.backwardeuler(
             oscillator_1st_deriv, xzero=[0, 1], timerange=[0, 5], timestep=0.1)
-    p_back_e_raw, v_back_e_raw = zip(*x_back_e_raw)
+    p_back_e_raw, v_back_e_raw = x_back_e_raw
     t_back_e = [round(x, 6) for x in t_back_e_raw]
     p_back_e = [round(x, 6) for x in p_back_e_raw]
     v_back_e = [round(x, 6) for x in v_back_e_raw]
@@ -68,7 +68,7 @@ def test_BackwardEuler():
     v_test = [round(x, 6) for x in oscillator_backwardeuler_x2]
     t_back_e_raw, x_back_e_raw = ode.backwardeuler(
             oscillator_1st_deriv, xzero=[0, 1], timerange=[0, 5], timestep=0.1)
-    p_back_e_raw, v_back_e_raw = zip(*x_back_e_raw)
+    p_back_e_raw, v_back_e_raw = x_back_e_raw
     t_back_e = [round(x, 6) for x in t_back_e_raw]
     p_back_e = [round(x, 6) for x in p_back_e_raw]
     v_back_e = [round(x, 6) for x in v_back_e_raw]
@@ -79,8 +79,8 @@ def test_Verlet():
     tv_raw, x_v_raw, v_v_raw = ode.verlet(
             dfun=oscillator_2nd_deriv, xzero=[0], vzero=[1],
             timerange=[0, 5], timestep=.1)
-    xv_raw = list(zip(*x_v_raw))[0]
-    vv_raw = list(zip(*v_v_raw))[0]
+    xv_raw = list(x_v_raw)[0]
+    vv_raw = list(v_v_raw)[0]
     tv = [round(x, 6) for x in tv_raw]
     xv = [round(x, 6) for x in xv_raw]
     vv = [round(x, 6) for x in vv_raw]
@@ -102,8 +102,8 @@ def test_verlet():
     t_v_raw, x_v_raw, v_v_raw = ode.verlet(
             dfun=oscillator_2nd_deriv, xzero=[0], vzero=[1],
             timerange=[0, 5], timestep=.1)
-    xv_raw = list(zip(*x_v_raw))[0]
-    vv_raw = list(zip(*v_v_raw))[0]
+    xv_raw = list(x_v_raw)[0]
+    vv_raw = list(v_v_raw)[0]
     t_v = [round(x, 6) for x in t_v_raw]
     x_v = [round(x, 6) for x in xv_raw]
     v_v = [round(x, 6) for x in vv_raw]

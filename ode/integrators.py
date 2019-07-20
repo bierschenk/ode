@@ -85,7 +85,9 @@ def euler(dfun, xzero, timerange, timestep):
         :returns: t, x:
             as lists
     '''
-    return zip(*list(Euler(dfun, xzero, timerange, timestep)))
+    t_column, X = zip(*list(Euler(dfun, xzero, timerange, timestep)))
+    X_columns = zip(*X)
+    return t_column, X_columns
 
 
 class Verlet(ConstantTimestep):
@@ -160,7 +162,10 @@ def verlet(dfun, xzero, vzero, timerange, timestep):
         :returns: t, x, v:
             as lists.
     '''
-    return zip(*list(Verlet(dfun, xzero, vzero, timerange, timestep)))
+    t_column, X, V = zip(*list(Verlet(dfun, xzero, vzero, timerange, timestep)))
+    X_columns = zip(*X)
+    V_columns = zip(*V)
+    return t_column, X_columns, V_columns
 
 
 class BackwardEuler(ConstantTimestep):
@@ -249,4 +254,6 @@ def backwardeuler(dfun, xzero, timerange, timestep):
         :returns: t, x:
             as lists.
     '''
-    return zip(*list(BackwardEuler(dfun, xzero, timerange, timestep)))
+    t_column, X = zip(*list(BackwardEuler(dfun, xzero, timerange, timestep)))
+    X_columns = zip(*X)
+    return t_column, X_columns

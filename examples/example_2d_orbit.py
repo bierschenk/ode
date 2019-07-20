@@ -124,13 +124,6 @@ t_euler, x_euler = ode.euler(
         timestep=t_step,
         )
 
-# t_backward_euler, x_backward_euler = ode.backward_euler(
-#         dot_func=dx_orbit_sys,
-#         x_zero=X_0,
-#         t_range=t_range,
-#         t_step=t_step,
-#         )
-
 (em1x, em1y,
  em2x, em2y,
  em3x, em3y,
@@ -138,32 +131,13 @@ t_euler, x_euler = ode.euler(
  em1vx, em1vy,
  em2vx, em2vy,
  em3vx, em3vy,
- em4vx, em4vy) = zip(*x_euler)
+ em4vx, em4vy) = x_euler
 
-# (bem1x, bem1y,
-#  bem2x, bem2y,
-#  bem3x, bem3y,
-#  bem4x, bem4y,
-#  bem1vx, bem1vy,
-#  bem2vx, bem2vy,
-#  bem3vx, bem3vy,
-#  bem4vx, bem4vy) = zip(*x_backward_euler)
-
-# t_verlet, x_verlet = ode.verlet(
-#         ddot_func=ddx_orbit_sys, x_zero=x_verlet, v_zero=v_verlet_0,
-#         t_range=t_range, t_step=t_step)
-
-# v1, v2, v3, v4 = zip(*x_verlet)
 
 plt.plot(em1x, em1y, label='M1-E')
 plt.plot(em2x, em2y, label='M2-E')
 plt.plot(em3x, em3y, label='M3-E')
 plt.plot(em4x, em4y, label='M4-E')
-# plt.plot(bem1x, bem1y, label='M1-BE')
-# plt.plot(bem2x, bem2y, label='M2-BE')
-# plt.plot(bem3x, bem3y, label='M3-BE')
-# plt.plot(bem4x, bem4y, label='M4-BE')
-# plt.plot(v1, v2, label='Earth, Verlet')
-# plt.plot(v3, v4, label='Moon, Verlet')
+
 plt.legend()
 plt.show()
