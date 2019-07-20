@@ -20,11 +20,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'ode'
-copyright = '2018, bierschenk'
+copyright = '2019, bierschenk'
 author = 'bierschenk'
 
 # The short X.Y version
-version = ''
+version = '0.3.0'
 # The full version, including alpha/beta/rc tags
 release = ''
 
