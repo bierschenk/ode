@@ -11,7 +11,7 @@ setup(
     description="Ordinary differential equation solver (numeric integration)",
     long_description=readme + '\n\n' + history,
     keywords='ode',
-    version='0.3.0',
+    version='0.4.0',
     license="MIT license",
     packages=['ode'],
     include_package_data=True,
@@ -27,5 +27,5 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Topic :: Scientific/Engineering'
     ],
-    install_requires=[],
+    install_requires=['numpy'],
 )

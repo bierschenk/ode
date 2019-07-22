@@ -3,6 +3,15 @@ History
 =======
 
 
+0.4.0 (2019-07-21)
+------------------
+
+* Now requires numpy
+* Replaces list comprehension addition/multiplication with array math
+* update docs/double-pendulum-example to use an array dot-function and
+  place it on the usage-->examples page of the documentation.
+* The date on 0.3.0 was wrong -- should have been 2019-07-20
+
 0.3.0 (2019-06-10)
 ------------------
 

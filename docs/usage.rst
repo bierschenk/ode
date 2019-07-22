@@ -1,12 +1,16 @@
 Usage
 =====
 
-Examples
---------
-
 To use ode::
 
     import ode
+
+Examples
+--------
+
+:doc:`double-pendulum-example`
+
+:doc:`simple-orbit-example`
 
 
 Classes and functions
