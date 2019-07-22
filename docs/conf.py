@@ -24,7 +24,7 @@ copyright = '2019, bierschenk'
 author = 'bierschenk'
 
 # The short X.Y version
-version = '0.3.0'
+version = "__version__ = '0.4.0'"
 # The full version, including alpha/beta/rc tags
 release = ''
 
