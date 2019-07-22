@@ -10,6 +10,9 @@ Examples
 
 :doc:`double-pendulum-example`
 
+:doc:`simple-orbit-example`
+
+
 Classes and functions
 ---------------------
 
