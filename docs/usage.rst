@@ -1,13 +1,14 @@
 Usage
 =====
 
-Examples
---------
-
 To use ode::
 
     import ode
 
+Examples
+--------
+
+:doc:`double-pendulum-example`
 
 Classes and functions
 ---------------------

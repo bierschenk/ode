@@ -77,7 +77,7 @@ def test_BackwardEuler():
 
 def test_Verlet():
     tv_raw, x_v_raw, v_v_raw = ode.verlet(
-            dfun=oscillator_2nd_deriv, xzero=[0], vzero=[1],
+            ddfun=oscillator_2nd_deriv, xzero=[0], vzero=[1],
             timerange=[0, 5], timestep=.1)
     xv_raw = list(x_v_raw)[0]
     vv_raw = list(v_v_raw)[0]
@@ -85,7 +85,7 @@ def test_Verlet():
     xv = [round(x, 6) for x in xv_raw]
     vv = [round(x, 6) for x in vv_raw]
     tiv_raw, x_iv_raw, v_iv_raw = zip(*list(ode.Verlet(
-            dfun=oscillator_2nd_deriv, xzero=[0], vzero=[1],
+            ddfun=oscillator_2nd_deriv, xzero=[0], vzero=[1],
             timerange=[0, 5], timestep=.1)))
     xiv_raw = list(zip(*x_iv_raw))[0]
     viv_raw = list(zip(*v_iv_raw))[0]
@@ -100,7 +100,7 @@ def test_verlet():
     x_test = [round(x, 6) for x in oscillator_verlet_x1]
     v_test = [round(x, 6) for x in oscillator_verlet_v1]
     t_v_raw, x_v_raw, v_v_raw = ode.verlet(
-            dfun=oscillator_2nd_deriv, xzero=[0], vzero=[1],
+            ddfun=oscillator_2nd_deriv, xzero=[0], vzero=[1],
             timerange=[0, 5], timestep=.1)
     xv_raw = list(x_v_raw)[0]
     vv_raw = list(v_v_raw)[0]
