@@ -12,16 +12,12 @@ import numpy as np
 
 
 class Integrator:
-    def __init__(self, dfun, xzero, timerange):
-        '''Initializes dfun, xzero, timestart, timeend,
-        sets time at start and steps to zero.'''
-        assert len(timerange) == 2
-        self.timestart, self.timeend = timerange
-        self.time = self.timestart
-        # check output of dfun, wrap w/ np.array if necessary
-        xtest = dfun(self.time, xzero)
+    '''Defines reusable attribute settors where checking is needed'''
+
+    def setdfun(self, dfun):
+        '''check output of dfun, wrap w/ np.array if necessary'''
+        xtest = dfun(self.time, self.x)
         if not isinstance(xtest, np.ndarray):
-            xtest = np.array(xtest)
             def array_dfun(t, x):
                 x = dfun(t, x)
                 xarray = np.array(x)
@@ -29,13 +25,6 @@ class Integrator:
             self.dfun = array_dfun
         else:
             self.dfun = dfun
-        if len(xtest.shape) != 1:
-            raise Exception(f'dfun: {dfun} output is not one dimensional')
-        if not isinstance(xzero, np.ndarray):
-            xzero = np.array(xzero)
-        assert len(xzero.shape) == 1, 'xzero must be one dimensional'
-        self.x = xzero
-        self.stepcounter = 0
 
     def __iter__(self):
         return self
@@ -45,13 +34,20 @@ class ConstantTimestep(Integrator):
     '''The __init__ function of this class sets instance variables for
     integrators with a constant timestep.'''
     def __init__(self, dfun, xzero, timerange, timestep):
-        super().__init__(dfun, xzero, timerange)
+        assert len(timerange) == 2
+        self.timestart, self.timeend = timerange
+        self.time = self.timestart
         assert ((self.timeend - self.timestart) / timestep) > 0, (
             "'timerange' and 'timestep' not consistant. "
             "Check signs and order.")
+        if not isinstance(xzero, np.ndarray):
+            xzero = np.array(xzero)
+        self.x = xzero
+        self.stepcounter = 0
         self.timestep = timestep
         self.direction = np.sign(timestep)
         self.steps = np.ceil((self.timeend - self.timestart) / timestep)
+        super().setdfun(dfun)
         self.status = 'initialized'
 
 
