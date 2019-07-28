@@ -236,3 +236,66 @@ def backwardeuler(dfun, xzero, timerange, timestep):
     X_columns = np.vstack(X).T
     return t_column, X_columns
 
+
+class ExplicitRungeKutta():
+    '''Sets the butcher-tableau and eval_next function.
+    eval_next is needed for if an adaptive timestep neets eval_next more 
+    than once to shrink step.
+
+    Items in butcher tableau:
+    :param s: Integer s is the number of stages.
+    :param a: List of vectors of coefficients :math:`a_{ij}`
+        where :math:`1 \leq j < i leq s`. List contains :math:`s-1` vectors, 
+        starting at length 1 and increaseing to length :math:`s-1`.
+    :param b: Weights in either vector or matrix. Number of rows is the
+        number of results returned. Length is :math:`s`.
+    :param c: Nodes in a vector of length :math:`s` beginning with 
+        :math:`0` with :math:`s-1` nodes following.
+    '''
+    def setbutchertableau(self, s, a, b, c):
+        assert s >= 1, 's must be >= 1'
+        self.butcher_s = s
+        assert len(a) == s - 1, 'must be s-1 items in a'
+        butcher_a = []
+        for i in range(s-1):
+            assert len(a[i]) == i + 1, 'len(a[i]) == i + 1'
+            if isinstance(a[i], np.ndarray):
+                butcher_a[i] = a[i]
+            else:
+                butcher_a[i] = np.array(a[i])
+        self.butcher_a = butcher_a
+        if len(b.shape) == 1:
+            assert len(b) == s, 'must be s items in b'
+            if isinstance(b, np.ndarray):
+                self.butcher_b = b
+            else:
+                self.butcher_b = np.array(b)
+        else:
+            assert len(b.shape) == 2, 'b must be one or two dimensional'
+            butcher_b = []
+            for b_row in b:
+                assert len(b_row) == s, 'must be s items in b_row'
+                if isinstance(b_row, np.ndarray):
+                    butcher_b.append(b_row)
+                else:
+                    butcher_b.append(np.array(b_row))
+            self.butcher_b = np.array(butcher_b)
+        assert len(c) == s, 'must be s items in c'
+        assert c[0] == 0, 'first element of c must be 0'
+        if instance(c, np.ndarray):
+            self.butcher_c = c
+        else:
+            self.butcher_c = np.array(c)
+
+    def eval_next(self):
+        xnext = self.dfun(self.x, self.t) except with butcher.
+        return xnext
+
+
+class RK4(ConstantTimestep, ExplicitRungeKutta):
+    ''''''
+
+    # __init__ is same as ConstantTimestep, but also sets butcher table
+    def __init__(self, dfun, xzero, timerange, timestep):
+        super().setbutchertable(adf)
+        super().__init__(dfun, xzero, timerange, timestep):
