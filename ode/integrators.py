@@ -242,6 +242,17 @@ class ExplicitRungeKutta():
     eval_next is needed for if an adaptive timestep neets eval_next more 
     than once to shrink step.
 
+    Explicit Runge-Kutta methods:
+
+    :math:`y_{n+1} = y_n + h \sum_{i=1}^{s} b_i k_i`,
+    where
+    :math:`k_1 = f(t_n, y_n)`,
+    :math:`k_2 = f(t_n + c_2 h, y_n + h (a_{21} k_1)),
+    :math:`k_3 = f(t_n + c_3 h, y_n + h (a_{31} k_1 + a_{32} k_2)),
+    :math:`\vdots`
+    :math:`k_s = f(t_n + c_s h, y_n + h (a_{s1} k_1 + a_{s2} k_2
+          + \cdots + a_{s,s-1} k_{s-1}))`.
+
     Items in butcher tableau:
     :param s: Integer s is the number of stages.
     :param a: List of vectors of coefficients :math:`a_{ij}`
