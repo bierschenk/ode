@@ -7,7 +7,7 @@ tox==3.13.2
 coverage==4.5.3
 Sphinx==2.1.2
 nbsphinx==0.4.2
-ipykernel==5.1.1
+ipykernel==6.6.1
 matplotlib==3.1.1
 numpy==1.16.4
 
